@@ -2,61 +2,31 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Reaction Timer Game</title>
   <style>
     body {
       margin: 0;
-      height: 100vh;
-      background-color: green;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
       font-family: Arial, sans-serif;
-      color: white;
-      user-select: none;
+      background: #1faa59; /* Green background */
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
     }
 
-    button {
-      padding: 15px 30px;
-      font-size: 18px;
-      border: none;
-      border-radius: 8px;
-      cursor: pointer;
-      margin: 10px;
+    .game-container {
+      background: #ffffff;
+      border-radius: 20px;
+      padding: 30px 40px;
+      text-align: center;
+      width: 320px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.2);
     }
 
-    #playBtn {
-      background-color: blue;
-      color: white;
+    h1 {
+      margin-top: 0;
     }
 
-    #resetBtn {
-      background-color: gray;
-      color: white;
-    }
-
-    #message {
-      font-size: 24px;
-      margin: 20px;
-    }
-
-    #scores {
-      font-size: 18px;
-    }
-  </style>
-</head>
-<body>
-
-  <div id="message">Click Play to start</div>
-
-  <button id="playBtn">Play</button>
-  <button id="resetBtn">Reset Best Score</button>
-
-  <div id="scores">
-    <p>Reaction Time: <span id="current">--</span> ms</p>
-    <p>Best Time: <span id="best">--</span> ms</p>
-  </div>
-
-  <script>
-    let startTime = 0;
+    #screen {
+      width: 100%
