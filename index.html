@@ -91,9 +91,6 @@
     #resetBtn { background: #f39c12; }
     #resetBtn:hover { background: #d68910; }
 
-    #menuBtn { background: #9b59b6; }
-    #menuBtn:hover { background: #7d3c98; }
-
     .stats {
       margin-top: 10px;
       font-size: 14px;
@@ -108,48 +105,11 @@
       text-align: center;
       margin: 5px 0;
     }
-
-    /* Menu */
-    .menu-overlay {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(0,0,0,0.8);
-      display: none;
-      justify-content: center;
-      align-items: center;
-      z-index: 10;
-    }
-
-    .menu-box {
-      background: #222;
-      padding: 25px;
-      border-radius: 12px;
-      width: 250px;
-      text-align: center;
-    }
-
-    .menu-box button {
-      width: 100%;
-      margin: 6px 0;
-    }
   </style>
 </head>
 <body>
 
   <div class="lightning"></div>
-
-  <!-- Menu -->
-  <div id="menu" class="menu-overlay">
-    <div class="menu-box">
-      <h2>Game Menu</h2>
-      <button id="resumeBtn">Resume</button>
-      <button id="clearBtn">Clear Scores</button>
-      <button id="quitBtn">Quit Game</button>
-    </div>
-  </div>
 
   <div class="game-container">
 
@@ -161,7 +121,6 @@
 
     <button id="startBtn">Start</button>
     <button id="resetBtn">Restart</button>
-    <button id="menuBtn">Menu</button>
 
     <div class="stats">
       Last: <span id="lastTime">--</span> ms<br>
@@ -179,12 +138,6 @@
     const screen = document.getElementById("screen");
     const startBtn = document.getElementById("startBtn");
     const resetBtn = document.getElementById("resetBtn");
-    const menuBtn = document.getElementById("menuBtn");
-
-    const menu = document.getElementById("menu");
-    const resumeBtn = document.getElementById("resumeBtn");
-    const clearBtn = document.getElementById("clearBtn");
-    const quitBtn = document.getElementById("quitBtn");
 
     const lastTimeEl = document.getElementById("lastTime");
     const bestTimeEl = document.getElementById("bestTime");
@@ -199,29 +152,29 @@
     function updateBoard() {
       scoresEl.innerHTML = "";
 
-      scores.sort((a,b)=>a-b).slice(0,5).forEach(s => {
+      scores.sort((a, b) => a - b).slice(0, 5).forEach(s => {
         const li = document.createElement("li");
         li.textContent = s + " ms";
         scoresEl.appendChild(li);
       });
 
-      if(scores.length){
+      if (scores.length) {
         bestTimeEl.textContent = Math.min(...scores);
       }
 
       localStorage.setItem("reactionScores", JSON.stringify(scores));
     }
 
-    function startGame(){
-      if(state !== "idle") return;
+    function startGame() {
+      if (state !== "idle") return;
 
       state = "waiting";
       screen.textContent = "Wait...";
       screen.className = "screen wait";
 
-      const delay = Math.random()*3000 + 2000;
+      const delay = Math.random() * 3000 + 2000;
 
-      timer = setTimeout(()=>{
+      timer = setTimeout(() => {
         state = "ready";
         startTime = performance.now();
         screen.textContent = "CLICK!";
@@ -229,7 +182,7 @@
       }, delay);
     }
 
-    function resetGame(){
+    function resetGame() {
       clearTimeout(timer);
       state = "idle";
       screen.textContent = "Click Start";
@@ -237,9 +190,9 @@
       lastTimeEl.textContent = "--";
     }
 
-    screen.addEventListener("click", ()=>{
+    screen.addEventListener("click", () => {
 
-      if(state === "waiting"){
+      if (state === "waiting") {
         clearTimeout(timer);
         state = "idle";
         screen.textContent = "Too Soon!";
@@ -247,8 +200,8 @@
         return;
       }
 
-      if(state === "ready"){
-        const time = Math.round(performance.now()-startTime);
+      if (state === "ready") {
+        const time = Math.round(performance.now() - startTime);
 
         lastTimeEl.textContent = time;
         scores.push(time);
@@ -263,39 +216,16 @@
 
     startBtn.addEventListener("click", startGame);
 
-    resetBtn.addEventListener("click", ()=>{
+    resetBtn.addEventListener("click", () => {
       resetGame();
       scores = [];
       localStorage.removeItem("reactionScores");
       updateBoard();
       bestTimeEl.textContent = "--";
-    });
-
-    menuBtn.addEventListener("click", ()=>{
-      menu.style.display = "flex";
-    });
-
-    resumeBtn.addEventListener("click", ()=>{
-      menu.style.display = "none";
-    });
-
-    clearBtn.addEventListener("click", ()=>{
-      scores = [];
-      localStorage.removeItem("reactionScores");
-      updateBoard();
-      bestTimeEl.textContent = "--";
-    });
-
-    quitBtn.addEventListener("click", ()=>{
-      resetGame();
-      scores = [];
-      localStorage.removeItem("reactionScores");
-      updateBoard();
-      bestTimeEl.textContent = "--";
-      menu.style.display = "none";
-      screen.textContent = "Thanks for Playing!";
     });
 
     updateBoard();
   </script>
-<
+
+</body>
+</html>
