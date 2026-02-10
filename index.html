@@ -1,32 +1,53 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Reaction Timer Game</title>
-  <style>
+<meta charset="UTF-8">
+<title>Reaction Clicker Game</title>
+
+<style>
     body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      background: #1faa59; /* Green background */
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
+        margin: 0;
+        height: 100vh;
+        background: #1dbf45;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-family: Arial, sans-serif;
+        overflow: hidden;
+        color: white;
     }
 
-    .game-container {
-      background: #ffffff;
-      border-radius: 20px;
-      padding: 30px 40px;
-      text-align: center;
-      width: 320px;
-      box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+    /* Lightning background */
+    .lightning {
+        position: absolute;
+        width: 3px;
+        height: 100vh;
+        background: rgba(255,255,255,0.6);
+        animation: flash 2s infinite;
     }
 
-    h1 {
-      margin-top: 0;
+    .lightning:nth-child(1) { left: 20%; animation-delay: 0s; }
+    .lightning:nth-child(2) { left: 50%; animation-delay: 0.7s; }
+    .lightning:nth-child(3) { left: 80%; animation-delay: 1.3s; }
+
+    @keyframes flash {
+        0%, 90%, 100% { opacity: 0; }
+        92%, 95% { opacity: 1; }
     }
 
-    #screen {
-      width: 100%
+    .game-box {
+        position: relative;
+        background: #0b6623;
+        padding: 30px;
+        border-radius: 12px;
+        text-align: center;
+        z-index: 1;
+        width: 300px;
+    }
+
+    .screen {
+        width: 200px;
+        height: 200px;
+        background: blue;
+        margin: 0 auto 20px;
+        border-radius: 10
